@@ -27,9 +27,7 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            buildConfigField("String", "IMAGE_BASE_URL", "\"" + rootProject.getProperty("app.image.base.url") + "\"")
-            buildConfigField 'String', 'IMAGE_BASE_URL', '"https://"'
-
+            buildConfigField("String", "IMAGE_BASE_URL", "\"" + rootProject.getProperty("app.image.base.url") + "\"")
         }
     }
     compileOptions {

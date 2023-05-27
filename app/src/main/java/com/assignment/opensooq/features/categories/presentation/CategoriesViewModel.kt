@@ -42,8 +42,6 @@ class CategoriesViewModel @Inject constructor(
             _categoriesState.emit(getCategoriesUseCase())
         } catch (exception: Exception) {
             _errorState.emit(exception)
-            Log.d("TAG0022", "errp: ${(exception.localizedMessage)}")
-
         }
         _loadingState.emit(false)
     }

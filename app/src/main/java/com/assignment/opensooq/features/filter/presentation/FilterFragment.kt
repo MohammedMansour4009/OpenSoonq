@@ -27,8 +27,8 @@ class FilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        initData()
         binding = FragmentFilterBinding.inflate(layoutInflater)
+        initData()
         return binding.root
     }
 

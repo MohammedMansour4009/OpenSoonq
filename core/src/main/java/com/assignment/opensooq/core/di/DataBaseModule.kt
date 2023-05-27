@@ -39,8 +39,9 @@ object DataBaseModule {
     @Provides
     @Singleton
     fun provideSharedPreferences(context: Application): SharedPreferences {
-        return context.getSharedPreferences("OpensooqAppPrefs", Context.MODE_PRIVATE)
+        return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
 
+    private const val SHARED_PREF_NAME = "OpensooqAppPrefs"
 
 }
