@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.assignment.opensooq.features.categories.domain.model.category.TopicFilterModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_text_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_white"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:hint="@{model.name}"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textColorHint="@color/dark_gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:hint="Model" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:padding="10dp"
+        android:text="@{model.name}"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search_view"
+        tools:text="@tools:sample/full_names" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/text_view_label"
+            tools:listitem="@layout/row_option" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/linear_buttons" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@color/white"
+                android:gravity="start|center_vertical"
+                android:text="@string/reset"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@color/green"
+                android:text="@string/done"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

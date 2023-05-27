@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_app.xml"
+    app:startDestination="@id/categoriesFragment">
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.assignment.opensooq.features.categories.presentation.CategoriesFragment"
+        android:label="fragment_categories"
+        tools:layout="@layout/fragment_categories" />
+    <fragment
+        android:id="@+id/subCategoryFragment"
+        android:name="com.assignment.opensooq.features.subcategories.presentation.SubCategoryFragment"
+        android:label="fragment_subcategory"
+        tools:layout="@layout/fragment_subcategory" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.assignment.opensooq.features.filter.presentation.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter" />
+
+
+</navigation>

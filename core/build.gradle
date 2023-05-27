@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'realm-android'
+
+
+}
+
+android {
+    namespace 'com.assignment.opensooq.core'
+    compileSdk 33
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+
+    // #Image Loading Versions
+    implementation 'io.coil-kt:coil:2.2.2'
+
+    // #moshi
+    api 'com.serjltt.moshi:moshi-lazy-adapters:2.2'
+    api 'com.squareup.moshi:moshi-kotlin:1.14.0'
+
+    // #hilt
+    api 'com.google.dagger:hilt-android:2.44'
+    kapt 'com.google.dagger:hilt-compiler:2.44'
+    api("androidx.hilt:hilt-navigation-fragment:1.0.0")
+
+
+}

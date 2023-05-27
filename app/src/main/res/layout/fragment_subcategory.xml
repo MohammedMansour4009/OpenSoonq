@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".features.subcategories.presentation.SubCategoryFragment">
+
+    <include
+        android:id="@+id/toolbar_subcategory"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_title"
+        style="@style/NormalText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:textAlignment="viewStart"
+        tools:text="@tools:sample/full_names" />
+
+    <include
+        android:id="@+id/search_view"
+        layout="@layout/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardElevation="2dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_subcategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_subcategory" />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

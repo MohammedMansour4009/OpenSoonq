@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="enableClose"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            style="@style/TextTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:text="@{title}"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/image_view_close"
+            app:layout_constraintStart_toEndOf="@id/image_view_back"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/full_names" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:tint="@color/black"
+            android:visibility="@{enableClose ? View.VISIBLE :View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
