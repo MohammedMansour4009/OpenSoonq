@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.assignment.opensooq.R
@@ -20,6 +21,7 @@ class SubCategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentSubcategoryBinding
     private lateinit var subCategories: List<SubCategoryLocalResponse>
+    private lateinit var adapter: SubCategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +44,9 @@ class SubCategoryFragment : Fragment() {
         binding.toolbarSubcategory.imageViewBack.setOnClickListener {
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
+        binding.searchView.editTextSearchView.addTextChangedListener {
+            adapter.search(it.toString(), ::onSearchNothingFound)
+        }
     }
 
     private fun initView() {
@@ -51,7 +56,8 @@ class SubCategoryFragment : Fragment() {
 
     private fun initAdapter() {
         if (subCategories.isNotEmpty()) {
-            binding.recyclerViewSubcategory.adapter = SubCategoryAdapter(subCategories.toList(), ::onClickCategories)
+            adapter = SubCategoryAdapter(ArrayList(subCategories), ::onClickCategories)
+            binding.recyclerViewSubcategory.adapter = adapter
         } else {
             Toast.makeText(requireContext(), R.string.no_item, Toast.LENGTH_LONG).show()
         }
@@ -70,6 +76,10 @@ class SubCategoryFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), R.string.no_item, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun onSearchNothingFound() {
+        Toast.makeText(requireContext(), getString(R.string.nothing_found), Toast.LENGTH_SHORT).show()
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package com.assignment.opensooq.features.categories.domain.model.category
 
 import android.os.Parcelable
+import com.assignment.opensooq.core.base.BaseAdapter
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -30,6 +31,11 @@ data class SubCategoryLocalResponse(
     @Json(name = "parent_id")
     val parentId: Int,
 
-    var filterTopics:List<TopicFilterModel>?
+    var filterTopics: List<TopicFilterModel>?
 
-) : Parcelable
+) : Parcelable, BaseAdapter.Searchable {
+
+    override fun getSearchCriteria(): String {
+        return name
+    }
+}

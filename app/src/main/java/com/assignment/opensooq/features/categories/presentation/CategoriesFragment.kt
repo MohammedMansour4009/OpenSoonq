@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,11 +16,13 @@ import com.assignment.opensooq.databinding.FragmentCategoriesBinding
 import com.assignment.opensooq.features.categories.domain.model.category.CategoryModelLocalResponse
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class CategoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoriesBinding
     private val viewModel: CategoriesViewModel by viewModels()
+    private lateinit var adapter: CategoriesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +37,13 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
         initView()
+        initListener()
+    }
+
+    private fun initListener() {
+        binding.searchView.editTextSearchView.addTextChangedListener {
+            adapter.search(it.toString(), ::onSearchNothingFound)
+        }
     }
 
     private fun initView() {
@@ -49,7 +59,8 @@ class CategoriesFragment : Fragment() {
 
     private fun handleCategories(categories: List<CategoryModelLocalResponse>?) {
         if (categories != null) {
-            binding.recyclerViewCategories.adapter = CategoriesAdapter(categories, ::onClickCategories)
+            adapter = CategoriesAdapter(ArrayList(categories), ::onClickCategories)
+            binding.recyclerViewCategories.adapter = adapter
         }
     }
 
@@ -73,6 +84,11 @@ class CategoriesFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), R.string.no_item, Toast.LENGTH_LONG).show()
         }
+    }
+
+
+    private fun onSearchNothingFound() {
+        Toast.makeText(requireContext(), getString(R.string.nothing_found), Toast.LENGTH_SHORT).show()
     }
 
     companion object {
