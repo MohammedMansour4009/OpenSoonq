@@ -59,7 +59,7 @@ class CategoriesFragment : Fragment() {
 
     private fun handleCategories(categories: List<CategoryModelLocalResponse>?) {
         if (categories != null) {
-            adapter = CategoriesAdapter(ArrayList(categories), ::onClickCategories)
+            adapter = CategoriesAdapter(categories, ::onClickCategories)
             binding.recyclerViewCategories.adapter = adapter
         }
     }

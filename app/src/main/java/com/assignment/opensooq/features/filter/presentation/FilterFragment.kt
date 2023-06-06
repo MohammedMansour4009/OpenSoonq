@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.assignment.opensooq.core.coroutines.collect
 import com.assignment.opensooq.core.extension.parcelableArrayList
 import com.assignment.opensooq.databinding.FragmentFilterBinding
 import com.assignment.opensooq.features.categories.domain.model.category.TopicFilterModel
@@ -20,7 +21,7 @@ class FilterFragment : Fragment() {
     private lateinit var binding: FragmentFilterBinding
     private lateinit var topicList: List<TopicFilterModel>
     private val viewModel: FilterViewModel by viewModels()
-
+    private lateinit var filterAdapter: FilterAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +36,16 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewModel.optionsState.collect(viewLifecycleOwner, ::onUpdateCarType)
+    }
+
+    private fun onUpdateCarType(topicFilterModel: TopicFilterModel) {
+        val position = viewModel.getTopicFilterIndex(topicList, topicFilterModel)
+        filterAdapter.notifyItemChanged(position)
     }
 
     private fun initListener() {
@@ -47,14 +58,14 @@ class FilterFragment : Fragment() {
         topicList =
             (arguments?.parcelableArrayList<TopicFilterModel>(SubCategoryFragment.ORDERS)?.toList() ?: emptyList())
 
-        val homeComponentAdapter = FilterAdapter(topicList, childFragmentManager)
+        filterAdapter = FilterAdapter(topicList, childFragmentManager)
 
-        binding.recyclerViewFilter.adapter = homeComponentAdapter
+        binding.recyclerViewFilter.adapter = filterAdapter
         val layoutManager = binding.recyclerViewFilter.layoutManager as GridLayoutManager
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 
             override fun getSpanSize(position: Int): Int {
-                return homeComponentAdapter.getSpanCount(position)
+                return filterAdapter.getSpanCount(position)
             }
         }
         handleFilterResults(topicList)
@@ -64,4 +75,6 @@ class FilterFragment : Fragment() {
     private fun handleFilterResults(topicList: List<TopicFilterModel>) {
         binding.filterResults = viewModel.getCountFilterResults(topicList)
     }
+
+
 }

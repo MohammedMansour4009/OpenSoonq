@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TopicFilterModel(
-    val key: String,
+    val key: String? = null,
     var fieldName: String? = null,
     var name: String? = null,
     var componentType: TopicTypeModel = TopicTypeModel.LIST_STRING,

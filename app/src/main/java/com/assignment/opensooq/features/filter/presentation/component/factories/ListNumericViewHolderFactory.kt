@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import com.assignment.opensooq.databinding.RowListNumericBinding
 import com.assignment.opensooq.features.categories.domain.model.category.TopicFilterModel
 import com.assignment.opensooq.features.filter.presentation.component.viewhodlers.BaseFilterViewHolder
-import com.assignment.opensooq.features.filter.presentation.component.viewhodlers.ListNumericViewHolder
+import com.assignment.opensooq.features.filter.presentation.component.viewhodlers.NumericViewHolder
 
 class ListNumericViewHolderFactory : BaseViewHolderFactory {
 
@@ -16,7 +16,7 @@ class ListNumericViewHolderFactory : BaseViewHolderFactory {
         order: List<TopicFilterModel>,
         fragmentManager: FragmentManager
     ): BaseFilterViewHolder {
-        return ListNumericViewHolder(
+        return NumericViewHolder(
             RowListNumericBinding.inflate(layoutInflater, parent, false),
             fragmentManager
         )

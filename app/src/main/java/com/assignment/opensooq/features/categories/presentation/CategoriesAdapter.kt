@@ -8,9 +8,9 @@ import com.assignment.opensooq.databinding.RowCategoryBinding
 import com.assignment.opensooq.features.categories.domain.model.category.CategoryModelLocalResponse
 
 class CategoriesAdapter(
-    private val categories: MutableList<CategoryModelLocalResponse>,
+    private val categories: List<CategoryModelLocalResponse>,
     private val onClick: (CategoryModelLocalResponse) -> Unit
-) : BaseAdapter<CategoryModelLocalResponse, CategoriesAdapter.CategoriesViewHolder>(categories) {
+) : BaseAdapter<CategoryModelLocalResponse, CategoriesAdapter.CategoriesViewHolder>(ArrayList(categories)) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         return CategoriesViewHolder(RowCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))

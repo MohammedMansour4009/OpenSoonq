@@ -1,14 +1,17 @@
-package com.assignment.opensooq.features.filter.presentation.component.adapter
+package com.assignment.opensooq.features.filter.presentation.component.dialog.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.assignment.opensooq.core.base.BaseAdapter
 import com.assignment.opensooq.databinding.RowNumericOptionBinding
 import com.assignment.opensooq.features.categories.domain.model.option.OptionLocalResponse
 
-class NumericAdapter(
-    private val optionLocalResponses: List<OptionLocalResponse>
-) : RecyclerView.Adapter<NumericAdapter.NumericViewHolder>() {
+
+class NumericOptionAdapter(
+    private val optionLocalResponses: MutableList<OptionLocalResponse>,
+    private val onClickListener: (OptionLocalResponse) -> Unit
+) : BaseAdapter<OptionLocalResponse, NumericOptionAdapter.NumericViewHolder>(optionLocalResponses) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumericViewHolder {
         return NumericViewHolder(
@@ -18,7 +21,7 @@ class NumericAdapter(
 
     override fun onBindViewHolder(holder: NumericViewHolder, position: Int) {
         val model = optionLocalResponses[position]
-        holder.bind(model, position)
+        holder.bind(model)
     }
 
     override fun getItemCount(): Int {
@@ -28,10 +31,10 @@ class NumericAdapter(
     inner class NumericViewHolder(private val binding: RowNumericOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(model: OptionLocalResponse, position: Int) {
+        fun bind(model: OptionLocalResponse) {
             binding.model = model
             itemView.setOnClickListener {
-                notifyItemChanged(position)
+                onClickListener(model)
             }
         }
     }

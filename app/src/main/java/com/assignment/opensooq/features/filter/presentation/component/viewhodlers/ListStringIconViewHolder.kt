@@ -12,10 +12,10 @@ class ListStringIconViewHolder(
     private val fragmentManager: FragmentManager
 ) : BaseFilterViewHolder(binding.root) {
 
-    lateinit var component: TopicFilterModel
+    lateinit var topicFilterModel: TopicFilterModel
 
     override fun bind(topicFilterModel: TopicFilterModel) {
-        this.component = topicFilterModel
+        this.topicFilterModel = topicFilterModel
         binding.recyclerView.adapter = ListStringIconAdapter(topicFilterModel.optionList, ::onClick)
         binding.model = topicFilterModel
         handleListSelected()
@@ -24,7 +24,7 @@ class ListStringIconViewHolder(
 
     fun initListener() {
         binding.imageViewArrow.setOnClickListener {
-            OptionsDialogFragment(component).show(fragmentManager,"option_dialog")
+            OptionsDialogFragment(topicFilterModel).show(fragmentManager, "option_dialog")
         }
     }
 
@@ -35,7 +35,7 @@ class ListStringIconViewHolder(
 
 
     private fun handleListSelected() {
-        val itemsSelected = component.optionList.filter { it.selected }
+        val itemsSelected = topicFilterModel.optionList.filter { it.selected }
 
         binding.textViewItemSelected.text = itemsSelected.joinToString(", ") { it.name }
         if (itemsSelected.isNotEmpty()) {
@@ -44,7 +44,7 @@ class ListStringIconViewHolder(
 
         } else {
             binding.selected = false
-            binding.textViewItemSelected.text = component.name
+            binding.textViewItemSelected.text = topicFilterModel.name
         }
 
     }

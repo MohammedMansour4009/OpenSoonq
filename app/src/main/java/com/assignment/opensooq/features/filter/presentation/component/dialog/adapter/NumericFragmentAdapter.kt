@@ -1,13 +1,14 @@
-package com.assignment.opensooq.features.filter.presentation.component.adapter
+package com.assignment.opensooq.features.filter.presentation.component.dialog.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.assignment.opensooq.features.categories.domain.model.category.TopicFilterModel
 import com.assignment.opensooq.features.filter.presentation.NumericOptionFragment
 
-class NumericOptionAdapter(
+class NumericFragmentAdapter(
     fragment: Fragment,
     private val localResponse: TopicFilterModel,
+    private val onItemSelected: () -> Unit,
 ) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
@@ -15,6 +16,6 @@ class NumericOptionAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return NumericOptionFragment(localResponse)
+        return NumericOptionFragment(localResponse, onItemSelected, position)
     }
 }

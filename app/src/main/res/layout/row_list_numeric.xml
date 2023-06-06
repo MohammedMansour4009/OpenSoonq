@@ -8,6 +8,12 @@
         <variable
             name="model"
             type="com.assignment.opensooq.features.categories.domain.model.category.TopicFilterModel" />
+
+        <import type="kotlin.Pair" />
+
+        <variable
+            name="numericOptionValue"
+            type="kotlin.Pair&lt;String, String&gt;" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -61,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:text="@string/any"
+                android:text="@{numericOptionValue.first !=null ? numericOptionValue.first :@string/any }"
+                tools:text="@string/any"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_view_label_from" />
 
@@ -93,7 +100,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:text="@string/any"
+                android:text="@{numericOptionValue.second !=null ?  numericOptionValue.second :@string/any }"
+                tools:text="@string/any"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_from" />

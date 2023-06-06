@@ -1,7 +1,7 @@
 package com.assignment.opensooq.core.view
 
+import android.view.View
 import android.widget.ImageView
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import coil.load
 
@@ -12,5 +12,6 @@ fun ImageView.imageUrl(url: String?) {
 
 @BindingAdapter("checkVisibility")
 fun ImageView.nullableUrl(url: String?) {
-    this.isVisible = !url.isNullOrEmpty()
+    if (url.isNullOrEmpty())
+        this.visibility = View.GONE
 }
