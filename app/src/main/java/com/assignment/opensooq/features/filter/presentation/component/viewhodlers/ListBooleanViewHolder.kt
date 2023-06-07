@@ -22,7 +22,7 @@ class ListBooleanViewHolder(
         optionList.forEach {
             val textViewOption = textProperties(it)
             binding.flexboxLayout.addView(textViewOption)
-            initListener(textViewOption)
+            initListener(textViewOption, it)
         }
     }
 
@@ -39,16 +39,24 @@ class ListBooleanViewHolder(
         textViewOption.text = it.name
         textViewOption.gravity = Gravity.CENTER
         textViewOption.layoutParams = layoutParams
-        textViewOption.background = ContextCompat.getDrawable(context, R.drawable.background_text_option);
+        textViewOption.background = ContextCompat.getDrawable(context, R.drawable.background_text_option)
         return textViewOption
     }
 
-    private fun initListener(textViewOption: TextView) {
+    private fun initListener(textViewOption: TextView, optionLocalResponse: OptionLocalResponse) {
         val context = binding.root.context
         textViewOption.setOnClickListener {
-            textViewOption.background =
-                ContextCompat.getDrawable(context, R.drawable.background_text_option_selected);
-            textViewOption.setTextColor(ContextCompat.getColor(context, R.color.white))
+            if (!optionLocalResponse.selected) {
+                textViewOption.background =
+                    ContextCompat.getDrawable(context, R.drawable.background_text_option_selected)
+                textViewOption.setTextColor(ContextCompat.getColor(context, R.color.white))
+                optionLocalResponse.selected = true
+            } else {
+                textViewOption.background =
+                    ContextCompat.getDrawable(context, R.drawable.background_text_option)
+                textViewOption.setTextColor(ContextCompat.getColor(context, R.color.dark_gray))
+                optionLocalResponse.selected = false
+            }
         }
     }
 

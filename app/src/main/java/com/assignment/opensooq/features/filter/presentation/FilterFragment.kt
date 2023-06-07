@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class FilterFragment : Fragment() {
 
     private lateinit var binding: FragmentFilterBinding
-    private lateinit var topicList: List<TopicFilterModel>
     private val viewModel: FilterViewModel by viewModels()
     private lateinit var filterAdapter: FilterAdapter
 
@@ -40,27 +39,22 @@ class FilterFragment : Fragment() {
     }
 
     private fun initObserver() {
+        viewModel.topicsState.collect(viewLifecycleOwner, ::handleTopicsSuccess)
+        viewModel.resetTopicsState.collect(viewLifecycleOwner, ::handelResetTopics)
         viewModel.optionsState.collect(viewLifecycleOwner, ::onUpdateCarType)
     }
 
-    private fun onUpdateCarType(topicFilterModel: TopicFilterModel) {
-        val position = viewModel.getTopicFilterIndex(topicList, topicFilterModel)
-        filterAdapter.notifyItemChanged(position)
+    private fun handleTopicsSuccess(topicFilterModel: List<TopicFilterModel>?) {
+        if (topicFilterModel == null) return
+
+        initAdapter(topicFilterModel)
+        handleFilterResultsCount(topicFilterModel)
     }
 
-    private fun initListener() {
-        binding.toolbarFilter.imageViewBack.setOnClickListener {
-            activity?.onBackPressedDispatcher?.onBackPressed()
-        }
-    }
-
-    private fun initData() {
-        topicList =
-            (arguments?.parcelableArrayList<TopicFilterModel>(SubCategoryFragment.ORDERS)?.toList() ?: emptyList())
-
-        filterAdapter = FilterAdapter(topicList, childFragmentManager)
-
+    private fun initAdapter(topicFilterModel: List<TopicFilterModel>) {
+        filterAdapter = FilterAdapter(topicFilterModel, childFragmentManager)
         binding.recyclerViewFilter.adapter = filterAdapter
+
         val layoutManager = binding.recyclerViewFilter.layoutManager as GridLayoutManager
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 
@@ -68,12 +62,41 @@ class FilterFragment : Fragment() {
                 return filterAdapter.getSpanCount(position)
             }
         }
-        handleFilterResults(topicList)
-
     }
 
-    private fun handleFilterResults(topicList: List<TopicFilterModel>) {
+    private fun onUpdateCarType(topicFilterModel: TopicFilterModel) {
+        val position = viewModel.getTopicFilterIndex(topicFilterModel)
+        filterAdapter.notifyItemChanged(position)
+    }
+
+    private fun handelResetTopics(index: List<Int>) {
+        index.forEach {
+            filterAdapter.notifyItemChanged(it)
+        }
+    }
+
+    private fun initListener() {
+        binding.toolbarFilter.imageViewBack.setOnClickListener {
+            activity?.onBackPressedDispatcher?.onBackPressed()
+        }
+        binding.buttonReset.setOnClickListener {
+            viewModel.resetData()
+        }
+    }
+
+    private fun initData() {
+        val topicsFilter =
+            (arguments?.parcelableArrayList<TopicFilterModel>(SubCategoryFragment.ORDERS)?.toList() ?: emptyList())
+        viewModel.fillTopics(topicsFilter)
+    }
+
+    private fun handleFilterResultsCount(topicList: List<TopicFilterModel>) {
         binding.filterResults = viewModel.getCountFilterResults(topicList)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.resetData()
     }
 
 
